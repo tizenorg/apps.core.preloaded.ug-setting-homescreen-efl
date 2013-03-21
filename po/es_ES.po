@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "Fondo pantalla de inicio"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "Ajustes de la pantalla de inicio"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "Tipo de pantalla de inicio"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "Pantalla de inicio"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "Pantalla de inicio predeterminada"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "Def inicio"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "Modo Sencillo"
+

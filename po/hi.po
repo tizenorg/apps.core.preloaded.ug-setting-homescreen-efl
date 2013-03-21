@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "होम स्क्रीन वॉलपेपर"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "होम स्क्रीन सेटिंग्स"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "होम स्क्रीन प्रकार"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "होम स्क्रीन"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "डिफ़ॉल्ट होम स्क्रीन"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "होम जैसे सेट"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "आसान मोड"
+

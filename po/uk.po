@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "Заставка головного eкрана"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "Установки головного екрана"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "Тип головного екрана"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "Головний екран"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "Головний екран за замовчанням"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "Вст.як дом."
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "Спрощений режим"
+

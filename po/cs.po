@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "Pozadí dom. obrazovky"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "Nastavení domovské obrazovky"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "Typ domovské obrazovky"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "Domovská obrazovka"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "Výchozí domovská obrazovka"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "Domovská"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "Snadný režim"
+

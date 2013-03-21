@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "Cúlbhrat scáileáin bhaile"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "Socruithe an scáileáin bhaile"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "Cineál scáileáin bhaile"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "Scáileán baile"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "Scáileán baile réamhshocraithe"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "Mar bhaile"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "Mód éasca"
+

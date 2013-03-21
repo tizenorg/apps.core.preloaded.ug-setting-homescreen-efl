@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "საწყისი ეკრანის ფონი"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "საწყისი ეკრანის პარამეტრები"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "საწყისი ეკრანის ტიპი"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "საწყისი ეკრანი"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "ნაგულისხმევი საწყისი ეკრანი"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "საწყ. არჩ."
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "მარტივი რეჟიმი"
+

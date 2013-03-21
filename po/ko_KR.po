@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "홈 화면 배경화면"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "홈 화면 설정"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "홈 화면 종류"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "홈 화면"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "기본 홈 화면"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "홈으로 설정"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "이지 모드"
+

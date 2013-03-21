@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "ホーム画面の壁紙"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "ホーム画面設定"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "ホーム画面タイプ"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "ホーム画面"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "標準ホーム画面"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "ホームに設定"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "かんたんモード"
+

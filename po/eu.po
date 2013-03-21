@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "Has. pant. horma-papera"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "Pantaila nagusiaren ezarpenak"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "Pantaila nagusi mota"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "Hasierako pantaila"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "Lehenetsitako hasierako pantaila"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "Ez. nagusi"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "Modu erraza"
+

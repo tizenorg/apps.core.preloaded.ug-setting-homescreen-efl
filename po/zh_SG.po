@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "主屏墙纸"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "主屏设置"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "主屏类型"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "主屏"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "默认主屏"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "设置为首页"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "简易模式"
+

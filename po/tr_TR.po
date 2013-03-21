@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "Ana ekran duvar kağıdı"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "Ana ekran ayarları"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "Ana ekran tipi"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "Ana sayfa ekranı"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "Varsayılan ana ekran"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "Ana syf yap"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "Kolay mod"
+

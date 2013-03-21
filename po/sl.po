@@ -1,0 +1,21 @@
+msgid "IDS_ST_MBODY_HOME_SCREEN_WALLPAPER"
+msgstr "Ozadje za dom. zaslon"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_SETTINGS"
+msgstr "Nastavitve domačega zaslona"
+
+msgid "IDS_ST_BODY_HOME_SCREEN_TYPE"
+msgstr "Vrsta domačega zaslona"
+
+msgid "IDS_ST_HEADER_HOME_SCREEN"
+msgstr "Domači zaslon"
+
+msgid "IDS_ST_BODY_DEFAULT_HOME_SCREEN"
+msgstr "Privzeti domači zaslon"
+
+msgid "IDS_ST_BUTTON2_SET_AS_HOME"
+msgstr "Nast. domov"
+
+msgid "IDS_ST_BODY_EASY_MODE"
+msgstr "Preprosti način"
+
