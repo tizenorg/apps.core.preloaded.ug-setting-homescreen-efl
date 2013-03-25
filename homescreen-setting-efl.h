@@ -20,7 +20,7 @@
 #ifdef  LOG_TAG
 #undef  LOG_TAG
 #endif
-#define LOG_TAG "ug-homescreen-setting"
+#define LOG_TAG "ug-setting-homescreen"
 
 #include <dlog.h>
 
@@ -32,7 +32,7 @@
 #include <libintl.h>
 #include <ui-gadget-module.h>
 
-#define PKGNAME "ug-homescreen-setting-efl"
+#define PKGNAME "ug-setting-homescreen-efl"
 
 #define HOMESET_DOMAIN "ug-setting-homescreen-efl"
 #define HOMESET_TEXT(str) dgettext(HOMESET_DOMAIN, str)

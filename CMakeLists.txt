@@ -7,7 +7,7 @@ SET(LIBDIR "\${prefix}/lib")
 SET(BINDIR "${prefix}/bin")
 
 SET(VERSION 0.1.0)
-SET(UGNAME "homescreen-setting-efl")
+SET(UGNAME "setting-homescreen-efl")
 
 SET(SRCS
 	homescreen-setting-efl.c

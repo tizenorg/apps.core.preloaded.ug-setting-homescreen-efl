@@ -1,7 +1,7 @@
 
-Name:       ug-homescreen-setting-efl
-Summary:    UI Gadget : homescreen-setting-efl
-Version:    0.1.0
+Name:       ug-setting-homescreen-efl
+Summary:    UI Gadget : setting-homescreen-efl
+Version:    0.1.1
 Release:    0
 Group:      misc
 License:    Flora License
@@ -20,7 +20,7 @@ BuildRequires: pkgconfig(dlog)
 BuildRequires: pkgconfig(vconf)
 
 %description
-Description: UI Gadget, homescreen-setting-efl
+Description: UI Gadget, setting-homescreen-efl
 
 %prep
 %setup -q
@@ -39,7 +39,7 @@ rm -rf %{buildroot}
 %post
 
 %files
-%manifest ug-homescreen-setting-efl.manifest
+%manifest ug-setting-homescreen-efl.manifest
 /etc/smack/accesses2.d/ug.setting-homescreen-efl.include
 /usr/ug/lib/*
 /usr/ug/res/*
