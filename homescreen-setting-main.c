@@ -245,7 +245,7 @@ static Evas_Object* _homescreen_setting_main_add_genlist(struct ug_data *ugd)
 		main_data->text1 = strdup(HOMESET_TEXT("IDS_ST_BODY_HOME_SCREEN_TYPE"));
 		main_data->text2 = strdup(HOMESET_TEXT("IDS_ST_BODY_DEFAULT_HOME_SCREEN"));
 		main_data->check = NULL;
-		it = elm_genlist_item_append(genlist, &itc_type, (void *) main_data, NULL, ELM_GENLIST_ITEM_NONE, _homescreen_setting_main_gl_sel, ugd);
+		elm_genlist_item_append(genlist, &itc_type, (void *) main_data, NULL, ELM_GENLIST_ITEM_NONE, _homescreen_setting_main_gl_sel, ugd);
 	}
 
 	/* dialogue for settings */
