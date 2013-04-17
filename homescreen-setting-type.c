@@ -15,7 +15,10 @@
  */
 
 #include <vconf.h>
+#include <ail.h>
+#include <pkgmgr-info.h>
 
+#include "homescreen-setting-data.h"
 #include "homescreen-setting-type.h"
 
 #define HOMESET_DEFAULT_HOMESCREEN "org.tizen.menu-screen"
@@ -24,28 +27,19 @@ static Elm_Genlist_Item_Class itc_seperator, itc;
 
 enum
 {
-	TYPE_INDEX_DEFAULT = 0,
-	TYPE_INDEX_DOWNLOADED
+	INDEX_DEFAULT = 0,
+	INDEX_DOWNLOADED,
+	INDEX_DOWNLOADED_LAST,
 };
 
-typedef struct _homescreen_setting_type homescreen_setting_type_t;
-struct _homescreen_setting_type
-{
-	homescreen_setting_type_t *next;
-	int id;
-	int index;
-	char *text;
-	char *pkgname;
-};
-
-/* type data list should indicate head of the list */
+static Elm_Genlist_Item_Class itc_seperator, itc;
 static Evas_Object *radio_group = NULL;
 
 static char *_homescreen_setting_type_gl_text_get(void *data, Evas_Object *obj, const char *part)
 {
-	homescreen_setting_type_t *type_data = (homescreen_setting_type_t *) data;
+	homescreen_setting_data_list_t *data_list = (homescreen_setting_data_list_t *) data;
 
-	if (type_data == NULL)
+	if (data_list == NULL)
 	{
 		HOMESET_ERR("invalid data");
 		return NULL;
@@ -53,9 +47,9 @@ static char *_homescreen_setting_type_gl_text_get(void *data, Evas_Object *obj, 
 
 	if (!strcmp(part, "elm.text"))
 	{
-		if (type_data->text != NULL)
+		if (data_list->name != NULL)
 		{
-			return strdup(type_data->text);
+			return strdup(data_list->name);
 		}
 	}
 
@@ -64,9 +58,9 @@ static char *_homescreen_setting_type_gl_text_get(void *data, Evas_Object *obj, 
 
 static Evas_Object *_homescreen_setting_type_gl_content_get(void *data, Evas_Object *obj, const char *part)
 {
-	homescreen_setting_type_t *type_data = (homescreen_setting_type_t *) data;
+	homescreen_setting_data_list_t *data_list = (homescreen_setting_data_list_t *) data;
 
-	if (type_data == NULL)
+	if (data_list == NULL)
 	{
 		HOMESET_ERR("invalid data");
 		return NULL;
@@ -76,9 +70,9 @@ static Evas_Object *_homescreen_setting_type_gl_content_get(void *data, Evas_Obj
 	if (!strcmp(part, "elm.icon.1"))
 	{
 		radio = elm_radio_add(obj);
-		elm_radio_state_value_set(radio, type_data->id);
+		elm_radio_state_value_set(radio, data_list->id);
 
-		if (type_data->id != 0)
+		if (data_list->id != 0)
 		{
 			elm_radio_group_add(radio, radio_group);
 		}
@@ -87,27 +81,26 @@ static Evas_Object *_homescreen_setting_type_gl_content_get(void *data, Evas_Obj
 			radio_group = radio;
 		}
 
-		/* Check current menu screen */
-		char *current_homescreen = vconf_get_str(VCONFKEY_SETAPPL_SELECTED_PACKAGE_NAME);
-		HOMESET_DBG("Current[%s], this[%d][%s]", current_homescreen, type_data->id, type_data->pkgname);
-		if (current_homescreen != NULL && type_data->pkgname != NULL)
+		// check current homeapp
+		char *homeapp = homescreen_setting_data_get_selected_homeapp();
+		if (homeapp && data_list->appid)
 		{
-			if (!strcmp(current_homescreen, type_data->pkgname))
+			if (!strcmp(homeapp, data_list->appid))
 			{
-				elm_radio_value_set(radio_group, type_data->id);
+				elm_radio_value_set(radio_group, data_list->id);
 			}
 		}
 
-		if (current_homescreen != NULL)
+		if (homeapp)
 		{
-			free(current_homescreen);
+			free(homeapp);
 		}
 
 		return radio;
 	}
 	else if (!strcmp(part, "elm.icon.2"))
 	{
-		if (type_data->index == TYPE_INDEX_DOWNLOADED)
+		if (data_list->index != INDEX_DEFAULT)
 		{
 			// TODO: Add next icon
 			return NULL;
@@ -118,27 +111,21 @@ static Evas_Object *_homescreen_setting_type_gl_content_get(void *data, Evas_Obj
 
 static void _homescreen_setting_type_gl_del(void *data, Evas_Object *obj)
 {
-	HOMESET_DBG("");
-	homescreen_setting_type_t *type_data = (homescreen_setting_type_t *) data;
+	homescreen_setting_data_list_t *data_list = (homescreen_setting_data_list_t *) data;
 
-	if (type_data == NULL)
+	if (data_list)
 	{
-		HOMESET_ERR("invalid data");
-		return;
+		if (data_list->appid)
+	{
+			free(data_list->appid);
+	}
+		if (data_list->name)
+	{
+			free(data_list->name);
 	}
 
-	/* Release data */
-	if (type_data->text != NULL)
-	{
-		free(type_data->text);
+		free(data_list);
 	}
-
-	if (type_data->pkgname != NULL)
-	{
-		free(type_data->pkgname);
-	}
-
-	free(type_data);
 }
 
 static void _homescreen_setting_type_gl_sel(void *data, Evas_Object *obj, void *event_info)
@@ -152,8 +139,8 @@ static void _homescreen_setting_type_gl_sel(void *data, Evas_Object *obj, void *
 
 	elm_genlist_item_selected_set(item, EINA_FALSE);
 
-	homescreen_setting_type_t *type_data = (homescreen_setting_type_t *) elm_object_item_data_get(item);
-	if (type_data == NULL)
+	homescreen_setting_data_list_t *data_list = (homescreen_setting_data_list_t *) elm_object_item_data_get(item);
+	if (data_list == NULL)
 	{
 		HOMESET_ERR("invalid type data");
 		return;
@@ -166,27 +153,56 @@ static void _homescreen_setting_type_gl_sel(void *data, Evas_Object *obj, void *
 		return;
 	}
 
-	/* Check current menu screen and set as home screen if different */
-	char *current_homescreen = vconf_get_str(VCONFKEY_SETAPPL_SELECTED_PACKAGE_NAME);
-	HOMESET_DBG("Current[%s], this[%d][%s]", current_homescreen, type_data->id, type_data->pkgname);
-	if (current_homescreen != NULL && type_data->pkgname != NULL)
+	char *homeapp = homescreen_setting_data_get_selected_homeapp();
+	if (homeapp && data_list->appid)
 	{
-		if (!strcmp(current_homescreen, type_data->pkgname))
+		if (!strcmp(homeapp, data_list->appid))
 		{
-			HOMESET_DBG("already set homescreen");
+			HOMESET_DBG("Already set homeapp[%s]", homeapp);
 		}
 		else
 		{
-			HOMESET_DBG("TODO: set[%s]--> [%s]", current_homescreen, type_data->pkgname);
-			//vconf_set_str(VCONFKEY_SETAPPL_SELECTED_PACKAGE_NAME, type_data->pkgname);
+			HOMESET_DBG("Change homeapp[%s]=>[%s]", homeapp, data_list->appid);
+			homescreen_setting_data_set_selected_homeapp(data_list->appid);
+
+			elm_radio_value_set(radio_group, data_list->id);
 		}
 	}
 
-	if (current_homescreen != NULL)
+	if (homeapp)
 	{
-		free(current_homescreen);
+		free(homeapp);
+		}
 	}
 
+void _homescreen_setting_type_gl_realized_cb(void *data, Evas_Object *obj, void *event_info)
+	{
+	Elm_Object_Item *item = (Elm_Object_Item *) event_info;
+	if (!item)
+	{
+		HOMESET_DBG("invalid item");
+		return;
+	}
+
+	homescreen_setting_data_list_t *data_list = (homescreen_setting_data_list_t *) elm_object_item_data_get(item);
+	if (!data_list)
+	{
+		HOMESET_DBG("invalid data");
+		return;
+	}
+
+	if (data_list->index == INDEX_DEFAULT)
+	{
+		elm_object_item_signal_emit(item, "elm,state,top", "");
+	}
+	else if (data_list->index == INDEX_DOWNLOADED)
+	{
+		elm_object_item_signal_emit(item, "elm,state,center", "");
+	}
+	else if (data_list->index == INDEX_DOWNLOADED_LAST)
+	{
+		elm_object_item_signal_emit(item, "elm,state,bottom", "");
+	}
 }
 
 static Evas_Object* _homescreen_setting_type_add_genlist(struct ug_data *ugd)
@@ -214,15 +230,43 @@ static Evas_Object* _homescreen_setting_type_add_genlist(struct ug_data *ugd)
 	itc.func.state_get = NULL;
 	itc.func.del = _homescreen_setting_type_gl_del;
 
+	// first item should be default home
 	int id = 0;
-	homescreen_setting_type_t *type_data = (homescreen_setting_type_t *) malloc(sizeof(homescreen_setting_type_t));
-	if (type_data != NULL)
+	homescreen_setting_data_list_t *data_list = (homescreen_setting_data_list_t *) malloc(sizeof(homescreen_setting_data_list_t));
+	if (data_list)
 	{
-		type_data->id = id++;
-		type_data->index = TYPE_INDEX_DEFAULT;
-		type_data->text = strdup(HOMESET_TEXT("IDS_ST_BODY_DEFAULT_HOME_SCREEN"));
-		type_data->pkgname = strdup(HOMESET_DEFAULT_HOMESCREEN);
-		elm_genlist_item_append(genlist, &itc, (void *) type_data, NULL, ELM_GENLIST_ITEM_NONE, _homescreen_setting_type_gl_sel, ugd);
+		data_list->id = id++;
+		data_list->index = INDEX_DEFAULT;
+		data_list->appid = strdup(HOMESET_DEFAULT_HOMESCREEN);
+		data_list->name = strdup(HOMESET_TEXT("IDS_ST_BODY_DEFAULT_HOME_SCREEN"));
+		elm_genlist_item_append(genlist, &itc, (void *) data_list, NULL, ELM_GENLIST_ITEM_NONE, _homescreen_setting_type_gl_sel, ugd);
+	}
+
+	int count = 0;
+	int i = 0;
+	data_list = homescreen_setting_data_get_homeapp_list(&count);
+	for (i = 0; i < count; i++)
+	{
+		if (data_list)
+		{
+			data_list->id = id++;
+			if (i == count - 1)
+			{
+				data_list->index = INDEX_DOWNLOADED_LAST;
+			}
+			else
+			{
+				data_list->index = INDEX_DOWNLOADED;
+			}
+			elm_genlist_item_append(genlist, &itc, (void *) data_list, NULL, ELM_GENLIST_ITEM_NONE, _homescreen_setting_type_gl_sel, ugd);
+
+			data_list = data_list->next;
+		}
+	}
+
+	if (count > 0)
+	{
+		evas_object_smart_callback_add(genlist, "realized", _homescreen_setting_type_gl_realized_cb, NULL);
 	}
 
 	return genlist;

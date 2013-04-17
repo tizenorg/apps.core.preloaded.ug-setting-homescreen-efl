@@ -18,9 +18,10 @@
 #include <ui-gadget.h>
 
 #include "homescreen-setting-main.h"
+#include "homescreen-setting-data.h"
 #include "homescreen-setting-type.h"
 
-static Elm_Genlist_Item_Class itc_seperator, itc_title, itc_type, itc_setting;
+static Elm_Genlist_Item_Class itc_seperator, itc_type;
 
 struct ug_data *g_ug_data = NULL;
 
@@ -28,7 +29,6 @@ enum
 {
 	MAIN_INDEX_GROUP = 0,
 	MAIN_INDEX_TYPE,
-	MAIN_INDEX_SETTING,
 };
 
 enum
@@ -43,8 +43,6 @@ struct _homescreen_setting_main
 	int group;
 	char *text1;
 	char *text2;
-
-	Evas_Object *check;
 };
 
 static void _homescreen_setting_main_back_cb(void *data, Evas_Object * obj, void *event_info)
@@ -56,23 +54,6 @@ static void _homescreen_setting_main_back_cb(void *data, Evas_Object * obj, void
 		return;
 
 	ug_destroy_me(ugd->ug);
-}
-
-static char *_homescreen_setting_main_gl_text_get_title(void *data, Evas_Object *obj, const char *part)
-{
-	homescreen_setting_main_t *main_data = (homescreen_setting_main_t *) data;
-	if (!main_data)
-	{
-		HOMESET_ERR("invalid data");
-		return NULL;
-	}
-
-	if (main_data->group == MAIN_GROUP_HOMESCREEN)
-	{
-		return strdup(HOMESET_TEXT("IDS_ST_HEADER_HOME_SCREEN"));
-	}
-
-	return NULL;
 }
 
 static char *_homescreen_setting_main_gl_text_get(void *data, Evas_Object *obj, const char *part)
@@ -94,16 +75,33 @@ static char *_homescreen_setting_main_gl_text_get(void *data, Evas_Object *obj, 
 	}
 	else if (!strcmp(part, "elm.text.2"))
 	{
-		if (main_data->index == MAIN_INDEX_TYPE && main_data->text2 != NULL)
+		if (main_data->index == MAIN_INDEX_TYPE)
 		{
+			if (main_data->text2)
+			{
+				free(main_data->text2);
+			}
+
+			char *homeapp = homescreen_setting_data_get_selected_homeapp();
+			if (homeapp)
+			{
+				if (!strcmp(homeapp, HOMESCREEN_SETTING_DEFAULT_PKGNAME))
+				{
+					main_data->text2 = strdup(HOMESET_TEXT("IDS_ST_BODY_DEFAULT_HOME_SCREEN"));
+				}
+				else
+				{
+					main_data->text2 = homescreen_setting_data_get_name(homeapp);
+				}
+
+				free(homeapp);
+			}
+			else
+			{
+				main_data->text2 = strdup(HOMESET_TEXT("IDS_ST_BODY_DEFAULT_HOME_SCREEN"));
+			}
+
 			return strdup(main_data->text2);
-		}
-	}
-	else if (!strcmp(part, "elm.text"))
-	{
-		if (main_data->index == MAIN_INDEX_SETTING && main_data->text1 != NULL)
-		{
-			return strdup(main_data->text1);
 		}
 	}
 
@@ -133,32 +131,6 @@ static void _homescreen_setting_main_gl_del(void *data, Evas_Object *obj)
 	}
 
 	free(main_data);
-}
-
-void _homescreen_setting_main_gl_realized_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	Elm_Object_Item *item = (Elm_Object_Item *) event_info;
-	if (!item)
-	{
-		HOMESET_DBG("invalid item");
-		return;
-	}
-
-	homescreen_setting_main_t *main_data = (homescreen_setting_main_t *) elm_object_item_data_get(item);
-	if (!main_data)
-	{
-		HOMESET_DBG("invalid main data");
-		return;
-	}
-
-	if (main_data->index == MAIN_INDEX_TYPE)
-	{
-		elm_object_item_signal_emit(item, "elm,state,top", "");
-	}
-	else if (main_data->index == MAIN_INDEX_SETTING)
-	{
-		elm_object_item_signal_emit(item, "elm,state,bottom", "");
-	}
 }
 
 static void _homescreen_setting_main_gl_sel(void *data, Evas_Object *obj, void *event_info)
@@ -211,25 +183,6 @@ static Evas_Object* _homescreen_setting_main_add_genlist(struct ug_data *ugd)
 	it = elm_genlist_item_append(genlist, &itc_seperator, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
 	elm_genlist_item_select_mode_set(it, ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY);
 
-	/* dialogue for group title */
-	itc_title.item_style = "dialogue/grouptitle";
-	itc_title.func.text_get = _homescreen_setting_main_gl_text_get_title;
-	itc_title.func.content_get = NULL;
-	itc_title.func.state_get = NULL;
-	itc_title.func.del = NULL;
-
-	homescreen_setting_main_t *main_data = (homescreen_setting_main_t *) malloc(sizeof(homescreen_setting_main_t));
-	if (main_data != NULL)
-	{
-		main_data->index = MAIN_INDEX_GROUP;
-		main_data->group = MAIN_GROUP_HOMESCREEN;
-		main_data->text1 = NULL;
-		main_data->text2 = NULL;
-		main_data->check = NULL;
-	}
-	it = elm_genlist_item_append(genlist, &itc_title, (void*) main_data, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
-	elm_genlist_item_select_mode_set(it, ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY);
-
 	/* dialogue for type */
 	itc_type.item_style = "dialogue/2text.3";
 	itc_type.func.text_get = _homescreen_setting_main_gl_text_get;
@@ -237,34 +190,16 @@ static Evas_Object* _homescreen_setting_main_add_genlist(struct ug_data *ugd)
 	itc_type.func.state_get = NULL;
 	itc_type.func.del = _homescreen_setting_main_gl_del;
 
-	main_data = (homescreen_setting_main_t *) malloc(sizeof(homescreen_setting_main_t));
+	homescreen_setting_main_t *main_data = (homescreen_setting_main_t *) malloc(sizeof(homescreen_setting_main_t));
 	if (main_data != NULL)
 	{
 		main_data->index = MAIN_INDEX_TYPE;
 		main_data->group = MAIN_GROUP_HOMESCREEN;
 		main_data->text1 = strdup(HOMESET_TEXT("IDS_ST_BODY_HOME_SCREEN_TYPE"));
 		main_data->text2 = strdup(HOMESET_TEXT("IDS_ST_BODY_DEFAULT_HOME_SCREEN"));
-		main_data->check = NULL;
+
 		elm_genlist_item_append(genlist, &itc_type, (void *) main_data, NULL, ELM_GENLIST_ITEM_NONE, _homescreen_setting_main_gl_sel, ugd);
 	}
-
-	/* dialogue for settings */
-	itc_setting.item_style = "dialogue/1text";
-	itc_setting.func.text_get = _homescreen_setting_main_gl_text_get;
-	itc_setting.func.content_get = NULL;
-	itc_setting.func.state_get = NULL;
-	itc_setting.func.del = _homescreen_setting_main_gl_del;
-
-	main_data = (homescreen_setting_main_t *) malloc(sizeof(homescreen_setting_main_t));
-	main_data->index = MAIN_INDEX_SETTING;
-	main_data->text1 = strdup(HOMESET_TEXT("IDS_ST_BODY_HOME_SCREEN_SETTINGS"));
-	main_data->text2 = NULL;
-	main_data->check = NULL;
-	it = elm_genlist_item_append(genlist, &itc_setting, main_data, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
-	elm_object_item_disabled_set(it, EINA_TRUE);
-
-	/* for grouping */
-	evas_object_smart_callback_add(genlist, "realized", _homescreen_setting_main_gl_realized_cb, NULL);
 
 	return genlist;
 }
