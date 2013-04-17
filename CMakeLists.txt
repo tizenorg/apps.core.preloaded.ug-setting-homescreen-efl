@@ -13,12 +13,13 @@ SET(SRCS
 	homescreen-setting-efl.c
 	homescreen-setting-main.c
 	homescreen-setting-type.c
+	homescreen-setting-data.c
 )
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 INCLUDE(FindPkgConfig)
-pkg_check_modules(pkgs REQUIRED elementary ui-gadget-1 evas dlog vconf)
+pkg_check_modules(pkgs REQUIRED elementary ui-gadget-1 evas dlog vconf ail pkgmgr-info)
 
 FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CXXFLAGS "${EXTRA_CXXFLAGS} ${flag}")
