@@ -166,6 +166,8 @@ static void _homescreen_setting_type_gl_sel(void *data, Evas_Object *obj, void *
 			homescreen_setting_data_set_selected_homeapp(data_list->appid);
 
 			elm_radio_value_set(radio_group, data_list->id);
+
+			elm_naviframe_item_pop(ugd->naviframe);
 		}
 	}
 
