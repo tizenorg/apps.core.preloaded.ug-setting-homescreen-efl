@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.tizenopensource.org/license
+ * http://floralicense.org
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -166,6 +166,8 @@ static void _homescreen_setting_type_gl_sel(void *data, Evas_Object *obj, void *
 			homescreen_setting_data_set_selected_homeapp(data_list->appid);
 
 			elm_radio_value_set(radio_group, data_list->id);
+
+			elm_naviframe_item_pop(ugd->naviframe);
 		}
 	}
 
