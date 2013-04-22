@@ -139,7 +139,10 @@ char *homescreen_setting_data_get_name(const char *appid)
 		return NULL;
 	}
 
-	return strdup(name);
+	char *ret_name = strdup(name);
+	ail_destroy_appinfo(ai);
+
+	return ret_name;
 }
 
 homescreen_setting_data_list_t *homescreen_setting_data_get_homeapp_list(int *count)
