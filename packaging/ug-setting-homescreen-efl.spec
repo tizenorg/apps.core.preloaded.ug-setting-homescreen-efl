@@ -1,7 +1,7 @@
 
 Name:       ug-setting-homescreen-efl
 Summary:    UI Gadget : setting-homescreen-efl
-Version:    0.1.2
+Version:    0.1.3
 Release:    0
 Group:      misc
 License:    Flora License
