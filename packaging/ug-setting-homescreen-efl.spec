@@ -6,6 +6,7 @@ Release:    0
 Group:      misc
 License:    Flora License
 Source0:    %{name}-%{version}.tar.gz
+Source1001: 	ug-setting-homescreen-efl.manifest
 
 BuildRequires: cmake
 BuildRequires: edje-tools
@@ -26,6 +27,7 @@ Description: UI Gadget, setting-homescreen-efl
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 
@@ -41,7 +43,7 @@ rm -rf %{buildroot}
 %post
 
 %files
-%manifest ug-setting-homescreen-efl.manifest
+%manifest %{name}.manifest
 /etc/smack/accesses2.d/ug.setting-homescreen-efl.include
 /usr/ug/lib/*
 /usr/ug/res/*
