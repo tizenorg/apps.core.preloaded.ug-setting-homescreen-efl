@@ -1,0 +1,10 @@
+Code-Review+2: Ryan Ware <ware@linux.intel.com>
+Verified+1: Ryan Ware <ware@linux.intel.com>
+Code-Review+1: Patrick McCarty <patrick.mccarty@linux.intel.com>
+Code-Review+1: Elena Reshetova <elena.reshetova@intel.com>
+Verified+1: Elena Reshetova <elena.reshetova@intel.com>
+Submitted-by: Ryan Ware <ware@linux.intel.com>
+Submitted-at: Mon, 08 Jul 2013 09:34:12 -0700
+Reviewed-on: https://review.tizen.org/gerrit/5407
+Project: apps/core/preloaded/ug-setting-homescreen-efl
+Branch: refs/heads/tizen
