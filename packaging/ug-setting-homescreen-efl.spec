@@ -1,3 +1,4 @@
+%bcond_with x
 
 Name:       ug-setting-homescreen-efl
 Summary:    UI Gadget : setting-homescreen-efl
@@ -21,6 +22,10 @@ BuildRequires: pkgconfig(dlog)
 BuildRequires: pkgconfig(vconf)
 BuildRequires: pkgconfig(ail)
 BuildRequires: pkgconfig(pkgmgr-info)
+
+%if %{with x}
+BuildRequires: pkgconfig(x11)
+%endif
 
 %description
 Description: UI Gadget, setting-homescreen-efl
