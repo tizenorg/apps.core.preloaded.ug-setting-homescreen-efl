@@ -1,4 +1,5 @@
 %bcond_with x
+%bcond_with wayland
 
 Name:       ug-setting-homescreen-efl
 Summary:    UI Gadget : setting-homescreen-efl
@@ -36,7 +37,12 @@ cp %{SOURCE1001} .
 
 %build
 
-cmake . -DCMAKE_INSTALL_PREFIX=%{/usr/ug/lib}/
+%cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix}/ug/lib/ \
+%if %{with wayland}
+         -DWAYLAND_SUPPORT=On
+%else
+         -DWAYLAND_SUPPORT=Off
+%endif
 
 make %{?jobs:-j%jobs}
 
@@ -49,6 +55,6 @@ rm -rf %{buildroot}
 
 %files
 %manifest %{name}.manifest
-/etc/smack/accesses2.d/ug.setting-homescreen-efl.include
-/usr/ug/lib/*
-/usr/ug/res/*
+%{_sysconfdir}/smack/accesses2.d/ug.setting-homescreen-efl.include
+%{_prefix}/ug/lib/*
+%{_prefix}/ug/res/*
