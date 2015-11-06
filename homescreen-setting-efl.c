@@ -109,7 +109,7 @@ static Evas_Object *create_fullview(Evas_Object *parent, struct ug_data *ugd)
 	return ugd->base;
 }
 
-static void *on_create(ui_gadget_h ug, enum ug_mode mode, service_h service, void *priv)
+static void *on_create(ui_gadget_h ug, enum ug_mode mode, app_control_h app_control, void *priv)
 {
 	HOMESET_DBG("");
 	Evas_Object *parent;
@@ -133,21 +133,21 @@ static void *on_create(ui_gadget_h ug, enum ug_mode mode, service_h service, voi
 	return ugd->base;
 }
 
-static void on_start(ui_gadget_h ug, service_h service, void *priv)
+static void on_start(ui_gadget_h ug, app_control_h app_control, void *priv)
 {
 }
 
-static void on_pause(ui_gadget_h ug, service_h service, void *priv)
-{
-
-}
-
-static void on_resume(ui_gadget_h ug, service_h service, void *priv)
+static void on_pause(ui_gadget_h ug, app_control_h app_control, void *priv)
 {
 
 }
 
-static void on_destroy(ui_gadget_h ug, service_h service, void *priv)
+static void on_resume(ui_gadget_h ug, app_control_h app_control, void *priv)
+{
+
+}
+
+static void on_destroy(ui_gadget_h ug, app_control_h app_control, void *priv)
 {
 	HOMESET_DBG("");
 	struct ug_data *ugd;
@@ -160,11 +160,11 @@ static void on_destroy(ui_gadget_h ug, service_h service, void *priv)
 	ugd->base = NULL;
 }
 
-static void on_message(ui_gadget_h ug, service_h msg, service_h service, void *priv)
+static void on_message(ui_gadget_h ug, app_control_h msg, app_control_h app_control, void *priv)
 {
 }
 
-static void on_event(ui_gadget_h ug, enum ug_event event, service_h service, void *priv)
+static void on_event(ui_gadget_h ug, enum ug_event event, app_control_h app_control, void *priv)
 {
 	switch (event)
 	{
